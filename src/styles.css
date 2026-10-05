@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import "tailwindcss" source("../");
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-paper: #f6f1e7;
+  --color-paper-deep: #ede5d4;
+  --color-card: #fffcf6;
+  --color-ink: #1d2621;
+  --color-ink-soft: #56615a;
+  --color-rule: #ddd3bf;
+  --color-moss: #1f4d3a;
+  --color-moss-deep: #163a2b;
+  --color-moss-soft: #dfe9e1;
+  --color-brass: #b07d24;
+  --color-brass-soft: #f4e6c7;
+  --color-oxblood: #8f2d2a;
+  --color-oxblood-soft: #f5dedb;
+}
+
+html {
+  background: var(--color-paper);
+}
+
+body {
+  @apply m-0 font-sans text-ink;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(circle at 12% 0%, rgb(176 125 36 / 0.07), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgb(31 77 58 / 0.06), transparent 45%);
+  background-attachment: fixed;
+}
+
+/* Fine paper grain, fixed so it never repaints on scroll. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.rise {
+  animation: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.fade {
+  animation: fade 0.2s ease-out both;
+}
+
+/* Catalog-card ruled lines used on empty states and the dashboard hero. */
+.ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    rgb(176 125 36 / 0.16) 27px,
+    rgb(176 125 36 / 0.16) 28px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .fade { animation: none; }
+}
